@@ -37,13 +37,13 @@ def main():
         if trans_map[le] == None:
             clean.append({
                 "spdx_id": spdx,
-                "comment": None,
+                "comment": "Generated from https://github.com/maxhbr/LDBcollector",
                 "license_expression": le
                 })
         else:
             dirty.append({
                 "spdx_id": spdx,
-                "comment": None,
+                "comment": "Generated from https://github.com/maxhbr/LDBcollector. Duplicate key with different data, so need review before use.",
                 "license_expression": le
                 })
 
