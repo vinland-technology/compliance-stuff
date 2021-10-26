@@ -20,13 +20,14 @@ def main():
         spdx = translation['spdx_id']
         le = translation['license_expression']
         if le in trans_map:
+            #print("le: " + str(le) + " OLD", file=sys.stderr)
             if trans_map[le] == spdx:
-                trans_map[le] = None
                 pass
             else:
-                #                print(le + " --> " + spdx + " already defined as: " + str(trans_map[le]) + "  | " + str(len(list(trans_map))))
+                #print(le + " --> " + spdx + " already defined as: " + str(trans_map[le]) + "  | " + str(len(list(trans_map))), file=sys.stderr)
                 trans_map[le] = None
         else:
+            print("le: " + str(le) + " NOT", file=sys.stderr)
             trans_map[le] = spdx
 
     clean = []
@@ -34,7 +35,7 @@ def main():
     for t in translations ['translations']:
         spdx = t['spdx_id']
         le = t['license_expression']
-        if trans_map[le] == None:
+        if trans_map[le] != None:
             clean.append({
                 "spdx_id": spdx,
                 "comment": "Generated from https://github.com/maxhbr/LDBcollector",
