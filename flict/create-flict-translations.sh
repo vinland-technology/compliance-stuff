@@ -3,6 +3,8 @@
 LDBC_BASE_URL=https://raw.githubusercontent.com/maxhbr/LDBcollector/generated/flict/
 LDBC_JSON_FILE=translation.json
 LDBC_BASE_URL=${LDBC_BASE_URL}/${LDBC_JSON_FILE}
+ALIAS_REPORT_MD=alias-report.md
+ALIAS_REPORT_PDF=alias-report.pdf
 
 FLICT_TRANSLATION=flict-translations.json
 
@@ -30,4 +32,22 @@ else
     exit 2
 fi
 
-echo "all fine :)"
+if [ ! -f ${FLICT_TRANSLATION} ]
+then
+    echo "failed creating ${FLICT_TRANSLATION}"
+    exit 3
+fi
+
+./list-transl.py  > ${ALIAS_REPORT_MD}
+if [ ! -f ${ALIAS_REPORT_MD} ]
+then
+    echo "failed creating ${ALIAS_REPORT_MD}"
+    exit 3
+fi
+
+pandoc ${ALIAS_REPORT_MD} -o ${ALIAS_REPORT_PDF}
+if [ ! -f ${ALIAS_REPORT_PDF} ]
+then
+    echo "failed creating ${ALIAS_REPORT_PDF}"
+    exit 3
+fi
